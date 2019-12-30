@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yylnb.dao.EmployeeMapper">
+    <resultMap id="WithDeptResultMap" type="com.yylnb.entity.Employee">
+        <id column="emp_id" jdbcType="INTEGER" property="emp_id" />
+        <result column="emp_name" jdbcType="VARCHAR" property="emp_name" />
+        <result column="gender" jdbcType="CHAR" property="gender" />
+        <result column="email" jdbcType="VARCHAR" property="email" />
+        <result column="d_id" jdbcType="INTEGER" property="d_id" />
+        <association property="department" javaType="com.yylnb.entity.Department">
+            <id column="dept_id" property="dept_id"/>
+            <result column="dept_name" property="dept_name"/>
+        </association>
+    </resultMap>
+
+    <select id="queryAll" resultMap="WithDeptResultMap">
+    SELECT e.*,d.* FROM employee e INNER JOIN department d ON d_id=dept_id
+    </select>
+</mapper>
